@@ -9,7 +9,7 @@ function obter_notas() {
             data.Notas.forEach(nota => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${nota.nome}</td>
+                    <td>${nota.titulo}</td>
                     <td>${nota.descricao}</td>
                     <td><button onclick="remocao_nota(${nota.id})">Deletar</button></td>
                 `;
@@ -21,7 +21,7 @@ function obter_notas() {
 
 function adicao_nota(event) {
     event.preventDefault();
-    const nome = document.getElementById('nome').value;
+    const titulo = document.getElementById('titulo').value;
     const descricao = document.getElementById('descricao').value;
 
     fetch('http://127.0.0.1:5000/', {
@@ -29,7 +29,7 @@ function adicao_nota(event) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nome, descricao }),
+        body: JSON.stringify({ titulo, descricao }),
     })
     .then(response => response.json())
     .then(data => {
