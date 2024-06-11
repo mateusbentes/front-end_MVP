@@ -1,25 +1,25 @@
-document.getElementById('notaForm').addEventListener('submit', addNota);
+document.getElementById('notaForm').addEventListener('submit', adicao_nota);
 
-function loadNotas() {
+function obter_notas() {
     fetch('http://127.0.0.1:5000/')
         .then(response => response.json())
         .then(data => {
-            const notaList = document.getElementById('notaList');
-            notaList.innerHTML = '';
+            const listaNotas = document.getElementById('listaNotas');
+            listaNotas.innerHTML = '';
             data.Notas.forEach(nota => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${nota.nome}</td>
                     <td>${nota.descricao}</td>
-                    <td><button onclick="deletaNota(${nota.id})">Delete</button></td>
+                    <td><button onclick="remocao_nota(${nota.id})">Deletar</button></td>
                 `;
-                notasList.appendChild(row);
+                listaNotas.appendChild(row);
             });
         })
         .catch(error => console.error('Erro:', error));
 }
 
-function addNota(event) {
+function adicao_nota(event) {
     event.preventDefault();
     const nome = document.getElementById('nome').value;
     const descricao = document.getElementById('descricao').value;
@@ -34,20 +34,20 @@ function addNota(event) {
     .then(response => response.json())
     .then(data => {
         alert('Nota adicionada!');
-        loadNotas();
+        obter_notas();
     })
     .catch(error => console.error('Error:', error));
 }
 
 
-function deletaNota(id) {
+function remocao_nota(id) {
     fetch(`http://127.0.0.1:5000/${id}`, {
         method: 'DELETE',
     })
     .then(response => {
         if (response.ok) {
             alert('Nota deletada!');
-            loadNotas();
+            obter_notas();
         } else {
             alert('Erro ao deletar nota.');
         }
@@ -56,4 +56,4 @@ function deletaNota(id) {
 }
 
 // Carregar as notas ao carregar da pagina
-window.onload = loadNotas;
+window.onload = obter_notas;
