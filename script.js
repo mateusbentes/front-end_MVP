@@ -41,8 +41,12 @@ function adicao_nota(event) {
 
 
 function remocao_nota(id) {
-    fetch(`http://127.0.0.1:5000/${id}`, {
+    fetch(`http://127.0.0.1:5000/`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: id }),
     })
     .then(response => {
         if (response.ok) {
