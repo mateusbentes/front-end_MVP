@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloco de notas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Bloco de notas</h1>
+    <form id="notaForm">
+        <input type="text" id="nota" placeholder="Nota" required>
+        <input type="text" id="descricao" placeholder="Descricao" required>
+        <button type="submit">Adicionar nota</button>
+    </form>
+    <table id="notasTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descricao</th>
+            </tr>
+        </thead>
+        <tbody id="notasList"></tbody>
+    </table>
+    <script src="script.js"></script>
+</body>
+</html>
