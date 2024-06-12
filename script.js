@@ -66,19 +66,6 @@ function edicao_nota(id) {
     .catch(error => console.error('Erro:', error));
 }
 
-
-function editMovie(id) {
-    fetch(`http://localhost:5000/movies/${id}`)
-        .then(response => response.json())
-        .then(movie => {
-            document.getElementById('movieId').value = movie.id;
-            document.getElementById('title').value = movie.title;
-            document.getElementById('year').value = movie.year;
-            document.getElementById('genre').value = movie.genre;
-        })
-        .catch(error => console.error('Error:', error));
-}
-
 function remocao_nota(id) {
     fetch(`http://127.0.0.1:5000/`, {
         method: 'DELETE',
