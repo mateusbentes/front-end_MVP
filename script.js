@@ -31,10 +31,14 @@ function adicao_nota(event) {
         },
         body: JSON.stringify({ titulo, texto }),
     })
-    .then(response => response.json())
-    .then(data => {
-        alert('Nota adicionada!');
-        obter_notas();
+    .then(response => {
+        if (response.ok) {
+            response.json()
+            alert('Nota adicionada!');
+            obter_notas();
+        } else {
+                alert('Erro ao adicionar nota.');
+        }
     })
     .catch(error => console.error('Error:', error));
 }
