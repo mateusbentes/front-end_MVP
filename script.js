@@ -9,8 +9,9 @@ function obter_notas() {
             data.Notas.forEach(nota => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${nota.titulo}</td>
-                    <td>${nota.texto}</td>
+                    <td contenteditable="true">${nota.titulo}</td>
+                    <td contenteditable="true">${nota.texto}</td>
+                    <td><button onclick="edicao_nota(${nota.id})">Salvar</button></td>
                     <td><button onclick="remocao_nota(${nota.id})">Deletar</button></td>
                 `;
                 listaNotas.appendChild(row);
@@ -43,6 +44,40 @@ function adicao_nota(event) {
     .catch(error => console.error('Error:', error));
 }
 
+function edicao_nota(id) {
+    fetch(`http://127.0.0.1:5000/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: id }),
+    })
+    .then(nota => {
+        if (response => response.json()) {
+            alert('Nota editada!');
+            obter_notas();
+        } else {
+            alert('Erro ao editar nota.');
+        }
+        document.getElementById('movieId').value = nota.id;
+        document.getElementById('title').value = nota.title;
+        document.getElementById('genre').value = nota.genre;
+    })
+    .catch(error => console.error('Erro:', error));
+}
+
+
+function editMovie(id) {
+    fetch(`http://localhost:5000/movies/${id}`)
+        .then(response => response.json())
+        .then(movie => {
+            document.getElementById('movieId').value = movie.id;
+            document.getElementById('title').value = movie.title;
+            document.getElementById('year').value = movie.year;
+            document.getElementById('genre').value = movie.genre;
+        })
+        .catch(error => console.error('Error:', error));
+}
 
 function remocao_nota(id) {
     fetch(`http://127.0.0.1:5000/`, {
