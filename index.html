@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloco de notas</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Bloco de notas</h1>
     <form id="notaForm">
-        <input type="text" id="titulo" placeholder="Titulo" required>
-        <input type="text" id="descricao" placeholder="Descricao" required>
+        <input type="text" id="titulo" placeholder="Título" required>
+        <input type="text" id="texto" placeholder="Texto" required>
         <button type="submit">Adicionar nota</button>
     </form>
     <table id="notasTable">
         <thead>
             <tr>
-                <th>titulo</th>
-                <th>Descricao</th>
+                <th>Título</th>
+                <th>Texto</th>
+                <th>Deletar nota</th>
             </tr>
         </thead>
         <tbody id="listaNotas"></tbody>

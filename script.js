@@ -10,7 +10,7 @@ function obter_notas() {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${nota.titulo}</td>
-                    <td>${nota.descricao}</td>
+                    <td>${nota.texto}</td>
                     <td><button onclick="remocao_nota(${nota.id})">Deletar</button></td>
                 `;
                 listaNotas.appendChild(row);
@@ -22,14 +22,14 @@ function obter_notas() {
 function adicao_nota(event) {
     event.preventDefault();
     const titulo = document.getElementById('titulo').value;
-    const descricao = document.getElementById('descricao').value;
+    const texto = document.getElementById('texto').value;
 
     fetch('http://127.0.0.1:5000/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ titulo, descricao }),
+        body: JSON.stringify({ titulo, texto }),
     })
     .then(response => response.json())
     .then(data => {
