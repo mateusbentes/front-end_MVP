@@ -1,4 +1,8 @@
-# Meu Front
+# Meu Front end
+
+Front-end do MVP **Bloco de Notas**
+
+O objetivo aqui é criar um aplicativo web de bloco de notas que consulte, adicione, edite e delete as notas.
 
 ---
 ## Como executar
