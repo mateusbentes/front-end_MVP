@@ -1,6 +1,6 @@
-document.getElementById('notaForm').addEventListener('submit', adicao_nota);
+document.getElementById('notaForm').addEventListener('submit', adicaoNota);
 
-function obter_notas() {
+function obterNotas() {
     fetch('http://127.0.0.1:5000/')
         .then(response => response.json())
         .then(data => {
@@ -8,11 +8,12 @@ function obter_notas() {
             listaNotas.innerHTML = '';
             data.Notas.forEach(nota => {
                 const row = document.createElement('tr');
+                row.setAttribute('data-id', nota.id);
                 row.innerHTML = `
                     <td contenteditable="true">${nota.titulo}</td>
                     <td contenteditable="true">${nota.texto}</td>
-                    <td><button onclick="edicao_nota(${nota.id})">Salvar</button></td>
-                    <td><button onclick="remocao_nota(${nota.id})">Deletar</button></td>
+                    <td><button onclick="edicaoNota(${nota.id})">Salvar</button></td>
+                    <td><button onclick="remocaoNota(${nota.id})">Deletar</button></td>
                 `;
                 listaNotas.appendChild(row);
             });
@@ -20,7 +21,7 @@ function obter_notas() {
         .catch(error => console.error('Erro:', error));
 }
 
-function adicao_nota(event) {
+function adicaoNota(event) {
     event.preventDefault();
     const titulo = document.getElementById('titulo').value;
     const texto = document.getElementById('texto').value;
@@ -36,7 +37,7 @@ function adicao_nota(event) {
         if (response.ok) {
             response.json()
             alert('Nota adicionada!');
-            obter_notas();
+            obterNotas();
         } else {
                 alert('Erro ao adicionar nota.');
         }
@@ -44,29 +45,31 @@ function adicao_nota(event) {
     .catch(error => console.error('Error:', error));
 }
 
-function edicao_nota(id) {
+function edicaoNota(id) {
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+    const titulo = row.querySelector('td:nth-child(1)').innerText;
+    const texto = row.querySelector('td:nth-child(2)').innerText;
+        
     fetch(`http://127.0.0.1:5000/`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: id }),
+        body: JSON.stringify({ id: id, titulo: titulo, texto: texto }),
     })
-    .then(nota => {
-        if (response => response.json()) {
+    .then(response => {
+        if (response.ok) {
+            response.json()
             alert('Nota editada!');
-            obter_notas();
+            obterNotas();
         } else {
             alert('Erro ao editar nota.');
         }
-        document.getElementById('movieId').value = nota.id;
-        document.getElementById('title').value = nota.title;
-        document.getElementById('genre').value = nota.genre;
     })
-    .catch(error => console.error('Erro:', error));
+    .catch(error => console.error('Error:', error));
 }
 
-function remocao_nota(id) {
+function remocaoNota(id) {
     fetch(`http://127.0.0.1:5000/`, {
         method: 'DELETE',
         headers: {
@@ -77,7 +80,7 @@ function remocao_nota(id) {
     .then(response => {
         if (response.ok) {
             alert('Nota deletada!');
-            obter_notas();
+            obterNotas();
         } else {
             alert('Erro ao deletar nota.');
         }
@@ -86,4 +89,4 @@ function remocao_nota(id) {
 }
 
 // Carregar as notas ao carregar da pagina
-window.onload = obter_notas;
+window.onload = obterNotas;
