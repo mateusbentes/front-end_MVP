@@ -42,7 +42,7 @@ function adicaoNota(event) {
                 alert('Erro ao adicionar nota.');
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Erro:', error));
 }
 
 function edicaoNota(id) {
